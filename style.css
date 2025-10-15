@@ -1,0 +1,57 @@
+body {
+    background-color: #8690a2;
+    color: #161A1D;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+    background-color: #161A1D;
+    color: #8690a2;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #22272B;
+    color: #8690a2;
+    padding-top: 1.5rem;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #8690a2;
+    font-size: 1rem;
+}
+
+.theme-container {
+    display: flex;
+    justify-content: end;
+    background-color: #22272B;
+    color: #8690a2;
+    padding-bottom: 1rem;
+    padding-right: 3rem;
+}
+
+section {
+    padding: 2rem;
+    margin: 1rem 0;
+}
+
+.about, .projects, .contact, .education {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.projects {
+    margin-bottom: 1rem;
+}
+
+.project {
+    margin-bottom: 2rem;
+}
