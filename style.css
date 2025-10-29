@@ -1,10 +1,12 @@
 body {
-    background-color: #8690a2;
+    background-image: url('images/Night_Sky.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #061c3d;
     color: #161A1D;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -17,9 +19,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #22272B;
-    color: #8690a2;
-    padding-top: 1.5rem;
+    color: #eaeab3;
+    padding-top: 1rem;
 }
 
 .theme-toggle {
@@ -32,7 +33,6 @@ header {
 .theme-container {
     display: flex;
     justify-content: end;
-    background-color: #22272B;
     color: #8690a2;
     padding-bottom: 1rem;
     padding-right: 3rem;
@@ -43,15 +43,53 @@ section {
     margin: 1rem 0;
 }
 
-.about, .projects, .contact, .education {
-    max-width: 800px;
-    margin: 0 auto;
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    color: #0c3776;
+    width: 60%;
+    max-width: 350px;
+    height: 40px;
+    background-color: #eaeab3;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px solid #0a2f65;
+    border-radius: 5px;
 }
 
-.projects {
-    margin-bottom: 1rem;
+.search-bar {
+    padding-top: 14px;
+    display: flex;
 }
 
-.project {
-    margin-bottom: 2rem;
+input {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #eaeab3;
+    color: #0c3776;
+    border: 2px solid #0a2f65;
+    border-radius: 7px;
+    text-align: center;
 }
+
+input::placeholder {
+    color: #0a2e659c;
+}
+
+.Game-Section {
+    width: 80%;
+    background-color: #eaeab3;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    max-width: 700px;
+    color: #0c3776;
+    border: 2px solid #0a2f65;
+}
+
+.game-title {
+    text-align: center;
+}
+
