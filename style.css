@@ -47,10 +47,11 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 27px;
     color: #0c3776;
     width: 60%;
-    max-width: 350px;
+    max-width: 450px;
+    min-width: 400px;
     height: 40px;
     background-color: #eaeab3;
     margin-right: auto;
@@ -59,14 +60,26 @@ section {
     border-radius: 5px;
 }
 
-.search-bar {
-    padding-top: 14px;
+.second-filter-line {
     display: flex;
 }
 
-input {
+.search-and-apply {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 15px;
+    width: 80%;
     margin-right: auto;
     margin-left: auto;
+    max-width: 700px;
+
+}
+
+
+input {
+    /*margin-left: 7%;*/
     background-color: #eaeab3;
     color: #0c3776;
     border: 2px solid #0a2f65;
@@ -74,9 +87,24 @@ input {
     text-align: center;
 }
 
+button {
+    background-color: #0d3e86;
+    color: #d3d3a4;
+    border: 1px solid #d3d3a4;
+    border-radius: 7px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+}
+
+button:hover {
+    border: 2px solid #d3d3a4;
+}
+
 input::placeholder {
     color: #0a2e659c;
 }
+
 
 .Game-Section {
     width: 80%;
