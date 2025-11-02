@@ -3,7 +3,7 @@ const fs = require('fs')
 const results = [];
 
 
-class game {
+class Game {
     constructor(Name, Platform, Year_of_Release, Genre, Publisher, Global_Sales, Critic_Score, User_Score, Developer, Rating) {
         this.Name = Name;
         this.Platform = Platform;
@@ -22,16 +22,26 @@ fs.createReadStream('Raw Data.csv')
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
-        CSVResultsToObject(results)
+        const gameObjects = CSVResultsToObject(results);
     });
 
 function CSVResultsToObject(results){
     const gameObjList = [];
-    for(let i = 0; i < results.length;i++){
-        let currentResults = results[i];
-        const gameObj = new game(currentResults)
-        gameObjList.push(gameObj)
+    for (let i = 0; i < results.length; i++) {
+        const row = results[i];
+        const gameObj = new Game(
+            row.Name || "N/A",
+            row.Platform || "N/A",
+            row.Year_of_Release || "N/A",
+            row.Genre || "N/A",
+            row.Publisher || "N/A",
+            row.Global_Sales || "N/A",
+            row.Critic_Score || "N/A",
+            row.User_Score || "N/A",
+            row.Developer || "N/A",
+            row.Rating || "N/A"
+        );
+        gameObjList.push(gameObj);
     }
     return gameObjList;
 }
-

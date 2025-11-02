@@ -1,14 +1,7 @@
 //HEADER SECTION
-class Student {
-    constructor(name, id) {
-        this.name = name;
-        this.id = id;
-    }
-}
-
 class Node {
-    constructor(student) {
-        this.student = student;
+    constructor(game) {
+        this.game = game;
         this.left = null;
         this.right = null;
         this.height = 1;
@@ -17,73 +10,63 @@ class Node {
 
 //SOURCE SECTION
 class AVL {
+    //Constructor
     constructor() {
         this.root = null;
     }
+
+    //Comparing games helper function
+    compareGames(a, b) {
+        const salesA = Number(a.Global_Sales);
+        const salesB = Number(b.Global_Sales);
+        if (salesA < salesB) return -1;
+        if (salesA > salesB) return 1;
+        //Check names if first attributes are equal
+        const nameA = a.Name.toLowerCase();
+        const nameB = b.Name.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        //Return 0 if completely equal
+        return 0;
+    }
+    
     //Inserting node to BST (no checks besides balancing)
-    insertNode(root, student) {
-        //Standard tree insertion
-        if (root === null) {
-            return new Node(student);
-        }
-        if (student.id < root.student.id) {
-            root.left = this.insertNode(root.left, student);
-        } else if (student.id > root.student.id) {
-            root.right = this.insertNode(root.right, student);
-        } else {
+    insertNode(root, game) {
+        //Doesn't add invalid cells
+        if (game.Global_Sales === "N/A" || game.Global_Sales === "tbd") {
             return root;
         }
-
+        if (root === null) return new Node(game);
+        //Standard insertion with call to helper function
+        const cmp = this.compareGames(game, root.game);
+        if (cmp < 0) {
+            root.left = this.insertNode(root.left, game);
+        } else {
+            root.right = this.insertNode(root.right, game);
+        }
+        // Update height
         root.height = 1 + Math.max(this.getHeight(root.left), this.getHeight(root.right));
-
-        //Balancing tree
+        // Get balance factor
         let balance = this.getBalanceFactor(root);
-
+        //All rotation cases
         // LL Case
-        if (balance > 1 && student.id < root.left.student.id) {
+        if (balance > 1 && this.compareGames(game, root.left.game) < 0) {
             return this.rotateRight(root);
         }
         // RR Case
-        if (balance < -1 && student.id > root.right.student.id) {
+        if (balance < -1 && this.compareGames(game, root.right.game) > 0) {
             return this.rotateLeft(root);
         }
         // LR Case
-        if (balance > 1 && student.id > root.left.student.id) {
+        if (balance > 1 && this.compareGames(game, root.left.game) > 0) {
             root.left = this.rotateLeft(root.left);
             return this.rotateRight(root);
         }
         // RL Case
-        if (balance < -1 && student.id < root.right.student.id) {
+        if (balance < -1 && this.compareGames(game, root.right.game) < 0) {
             root.right = this.rotateRight(root.right);
             return this.rotateLeft(root);
         }
-
-        return root;
-    }
-
-    //Removing node from BST
-    removeNode(root, id) {
-        if (root === null) return root;
-
-        if (root.student.id < id) {
-            root.right = this.removeNode(root.right, id);
-        } else if (root.student.id > id) {
-            root.left = this.removeNode(root.left, id);
-        } else {
-            //If node has no left child or no children at all
-            if (root.left === null) return root.right;
-            //If node has no right child
-            if (root.right === null) return root.left;
-
-            //If node has left & right child
-            let next = root.right;
-            while (next.left !== null) next = next.left;
-
-            root.student = next.student;
-            root.right = this.removeNode(root.right, next.student.id);
-        }
-
-        root.height = 1 + Math.max(this.getHeight(root.left), this.getHeight(root.right));
         return root;
     }
 
@@ -122,89 +105,13 @@ class AVL {
         return temp;
     }
 
-    //Inserting student into tree (with several checks except balancing)
-    insert(name, idStr) {
-        //Checking if ID length is 8
-        if (idStr.length !== 8) {
-            console.log("unsuccessful");
-            return false;
-        }
-
-        //Checking if name is empty
-        if (!name) {
-            console.log("unsuccessful");
-            return false;
-        }
-        
-        //VERY DIFFERENT FROM C++ (MAYBE ERRORS?) (DELETE COMMENT LATER)
-        //Checking if name only has letters and spaces
-        for (let c of name) {
-            if (!(/[a-zA-Z\s]/.test(c))) {
-                console.log("unsuccessful");
-                return false;
-            }
-        }
-        let id = parseInt(idStr);
-
-        //Checking for dupes
-        let temp = this.root;
-        while (temp) {
-            if (id === temp.student.id) {
-                console.log("unsuccessful");
-                return false;
-            }
-            temp = id < temp.student.id ? temp.left : temp.right;
-        }
-
-        let s = new Student(name, id);
-        this.root = this.insertNode(this.root, s);
-        console.log("successful");
-        return true;
-    }
-    //END OF DIFFERENT SECTION (DELETE COMMENT LATER)
-
-    //Checks if ID exists in tree (used for remove function, not search)
-    searchIDHelper(id) {
-        let temp = this.root;
-        while (temp) {
-            if (temp.student.id === id) return true;
-            temp = id < temp.student.id ? temp.left : temp.right;
-        }
-        return false;
-    }
-
-    //Mainly used to call helper function above
-    remove(id) {
-        if (this.searchIDHelper(id)) {
-            this.root = this.removeNode(this.root, id);
-            console.log("successful");
-            return true;
-        }
-        console.log("unsuccessful");
-        return false;
-    }
-
-    //Performs a binary search to find correct id, if it exists
-    search(id) {
-        let temp = this.root;
-        while (temp) {
-            if (temp.student.id === id) {
-                console.log(temp.student.name);
-                return true;
-            }
-            temp = id < temp.student.id ? temp.left : temp.right;
-        }
-        console.log("unsuccessful");
-        return false;
-    }
-
     //Recursive helper function performing a depth-first search
     searchNameHelper(node, name) {
         if (!node) return false;
 
         let foundCurr = false;
-        if (node.student.name === name) {
-            console.log(node.student.id);
+        if (node.game.Name === name) {
+            console.log(node.game.Name);
             foundCurr = true;
         }
 
@@ -223,9 +130,9 @@ class AVL {
     //Used for printInorder to traverse recursively with node and output parameter
     inorderHelper(node, outputV) {
         if (!node) return;
-        this.inorderHelper(node.left, outputV);
-        outputV.push(node.student.name);
         this.inorderHelper(node.right, outputV);
+        outputV.push(node.game.Name);
+        this.inorderHelper(node.left, outputV);
     }
 
     //Primarily calls helper function
@@ -235,40 +142,41 @@ class AVL {
         console.log(outputV.join(", "));
         return outputV;
     }
+    
+    //COULD USE POSTORDER AND PREORDER LATER BUT IS COMMENTED OUT FOR NOW
+    // //Used for printPreorder to traverse recursively with node and output parameter
+    // preorderHelper(node, outputV) {
+    //     if (!node) return;
+    //     outputV.push(node.student.name);
+    //     this.preorderHelper(node.left, outputV);
+    //     this.preorderHelper(node.right, outputV);
+    // }
 
-    //Used for printPreorder to traverse recursively with node and output parameter
-    preorderHelper(node, outputV) {
-        if (!node) return;
-        outputV.push(node.student.name);
-        this.preorderHelper(node.left, outputV);
-        this.preorderHelper(node.right, outputV);
-    }
+    // //Primarily calls helper function
+    // printPreorder() {
+    //     let outputV = [];
+    //     this.preorderHelper(this.root, outputV);
+    //     console.log(outputV.join(", "));
+    //     return outputV;
+    // }
 
-    //Primarily calls helper function
-    printPreorder() {
-        let outputV = [];
-        this.preorderHelper(this.root, outputV);
-        console.log(outputV.join(", "));
-        return outputV;
-    }
+    // //Used for printPostorder to traverse recursively with node and output parameter
+    // postorderHelper(node, outputV) {
+    //     if (!node) return;
+    //     this.postorderHelper(node.left, outputV);
+    //     this.postorderHelper(node.right, outputV);
+    //     outputV.push(node.student.name);
+    // }
 
-    //Used for printPostorder to traverse recursively with node and output parameter
-    postorderHelper(node, outputV) {
-        if (!node) return;
-        this.postorderHelper(node.left, outputV);
-        this.postorderHelper(node.right, outputV);
-        outputV.push(node.student.name);
-    }
+    // //Primarily calls helper function
+    // printPostorder() {
+    //     let outputV = [];
+    //     this.postorderHelper(this.root, outputV);
+    //     console.log(outputV.join(", "));
+    //     return outputV;
+    // }
 
-    //Primarily calls helper function
-    printPostorder() {
-        let outputV = [];
-        this.postorderHelper(this.root, outputV);
-        console.log(outputV.join(", "));
-        return outputV;
-    }
-
-    //Work already done for this function via private getHeight function
+    //Work already done for this function via getHeight function
     printLevelCount() {
         if (!this.root) {
             console.log(0);
@@ -277,30 +185,6 @@ class AVL {
             console.log(this.getHeight(this.root));
             return this.getHeight(this.root);
         }
-    }
-
-    //Performs inorder traversal recursively
-    removeInorderHelper(node, ids) {
-        if (!node) return;
-        this.removeInorderHelper(node.left, ids);
-        ids.push(node.student.id);
-        this.removeInorderHelper(node.right, ids);
-    }
-
-    //Uses sorted list (via inorder traversal of helper function) of student ID's to remove Nth one
-    removeInorder(N) {
-        if (!this.root) {
-            console.log("unsuccessful");
-            return false;
-        }
-        let ids = [];
-        this.removeInorderHelper(this.root, ids);
-        if (N < 0 || N >= ids.length) {
-            console.log("unsuccessful");
-            return false;
-        }
-        this.remove(ids[N]);
-        return true;
     }
 
     //Destructor helper function (optional in JS)
