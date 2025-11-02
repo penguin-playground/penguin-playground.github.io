@@ -127,19 +127,29 @@ class AVL {
         return true;
     }
 
-    //Used for printInorder to traverse recursively with node and output parameter
-    inorderHelper(node, outputV) {
-        if (!node) return;
-        this.inorderHelper(node.right, outputV);
-        outputV.push(node.game.Name);
-        this.inorderHelper(node.left, outputV);
+    //Filters the games displayed based on user's selection
+    filterGame(game, filters) {
+        if (!filters || Object.keys(filters).length === 0) return true;
+        for (let key in filters) {
+            if (!String(game[key]).includes(String(filters[key]))) return false;
+        }
+        return true;
     }
 
-    //Primarily calls helper function
-    printInorder() {
+    //Used for printInorder to traverse recursively with node and output parameter
+    inorderHelper(node, outputV, filters) {
+        if (!node) return;
+        this.inorderHelper(node.right, outputV, filters);
+        if (this.filterGame(node.game, filters)) {
+            outputV.push(node.game.Name);
+        }
+        this.inorderHelper(node.left, outputV, filters);
+    }
+
+    //Inorder search that primarily calls helper function
+    InorderSearch(filters = {}) {
         let outputV = [];
-        this.inorderHelper(this.root, outputV);
-        console.log(outputV.join(", "));
+        this.inorderHelper(this.root, outputV, filters);
         return outputV;
     }
     
