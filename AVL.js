@@ -131,7 +131,11 @@ class AVL {
     filterGame(game, filters) {
         if (!filters || Object.keys(filters).length === 0) return true;
         for (let key in filters) {
-            if (!String(game[key]).includes(String(filters[key]))) return false;
+            if (Array.isArray(filters[key])) {
+                if (!filters[key].some(f => String(game[key]).includes(String(f)))) return false;
+            } else {
+                if (!String(game[key]).includes(String(filters[key]))) return false;
+            }
         }
         return true;
     }
