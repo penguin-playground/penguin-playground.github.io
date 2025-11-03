@@ -156,6 +156,27 @@ class AVL {
         this.inorderHelper(this.root, outputV, filters);
         return outputV;
     }
+
+    BFS(filters){
+        let queue = [];
+        queue.push(this.root);
+        let outputArr = [];
+        while(queue.length > 0){
+            let currentNode = queue.shift()
+            if(this.filterGame(currentNode.game, filters)){ //check if the current game object matches the filters
+                outputArr.push(currentNode.game)
+            }
+            if(currentNode.left){
+                queue.push(currentNode.left)
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right)
+            }
+        }
+        return outputArr //return an array of game objects that match the given filter
+    }
+
+
     
     //COULD USE POSTORDER AND PREORDER LATER BUT IS COMMENTED OUT FOR NOW
     // //Used for printPreorder to traverse recursively with node and output parameter
