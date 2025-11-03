@@ -158,6 +158,9 @@ class AVL {
     }
 
     BFS(filters){
+        if (!this.root) {
+            return []
+        }
         let queue = [];
         queue.push(this.root);
         let outputArr = [];
@@ -237,3 +240,5 @@ class AVL {
         this.root = null;
     }
 }
+
+module.exports = AVL;

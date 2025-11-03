@@ -1,8 +1,3 @@
-const csv = require('csv-parser')
-const fs = require('fs')
-const results = [];
-
-
 class Game {
     constructor(Name, Platform, Year_of_Release, Genre, Publisher, Global_Sales, Critic_Score, User_Score, Developer, Rating) {
         this.Name = Name;
@@ -17,13 +12,6 @@ class Game {
         this.Rating = Rating;
     }
 }
-
-fs.createReadStream('Raw Data.csv')
-    .pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-        const gameObjects = CSVResultsToObject(results); //stores gameObjList
-    });
 
 function CSVResultsToObject(results){
     const gameObjList = [];
@@ -45,3 +33,8 @@ function CSVResultsToObject(results){
     }
     return gameObjList;
 }
+
+module.exports = {
+    Game:Game,
+    CSVResultsToObject:CSVResultsToObject,
+};
