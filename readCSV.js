@@ -22,7 +22,7 @@ fs.createReadStream('Raw Data.csv')
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
-        const gameObjects = CSVResultsToObject(results);
+        const gameObjects = CSVResultsToObject(results); //stores gameObjList
     });
 
 function CSVResultsToObject(results){
