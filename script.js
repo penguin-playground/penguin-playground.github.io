@@ -23,3 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
 async function getGames() {
     
 }
+
+const select = document.getElementById('sort-by');
+const div = document.getElementById('search-algorithm');
+
+select.addEventListener('change', function() {
+    if (this.value != '0') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+});
+

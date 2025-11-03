@@ -14,15 +14,6 @@
     <div class="theme-container">
         <!--<span id="themeToggle" class="theme-toggle">Dark</span>-->
     </div>
-    <!--
-    <div class="filter-container">
-        <h4 class="platform-dropdown">Platform</h4>
-        <h4 class="genre-dropdown">Genre</h4>
-        <h4 class="publisher-dropdown">Publisher</h4>
-        <h4 class="year-dropdown">Year</h4>
-        <h4 class="sort-by-dropdown">Sort By</h4>
-    </div>
-    -->
 
     <div class="filter-container">
         <div class="dropdown-button">
@@ -62,8 +53,17 @@
         </div>
 
         <div class="dropdown-button">
-            <h4>Sort By</h4>
+            <h4>Developer</h4>
             <div class="dropdown-content5">
+                <p>List1</p>
+                <p>List2</p>
+                <p>List3</p>
+            </div>
+        </div>
+
+        <div class="dropdown-button">
+            <h4>Rating</h4>
+            <div class="dropdown-content6">
                 <p>List1</p>
                 <p>List2</p>
                 <p>List3</p>
@@ -72,16 +72,35 @@
     </div>
     
 
-    <section class="search-and-apply">
-        <div class="search-bar">
-            <input type="text" name="game-search" placeholder="Search By Name">
+    <section class="search-and-select">
+        <div class="game-title">
+            <p>Title:</p>
+            <input type="text" name="game-search" placeholder="Search By Title">
         </div>
 
-        <div class="filter-button">
-            <button><b>Apply Filters</b></button>
+        <div class="sort-by">
+            <p>Sort By:</p>
+            <select id="sort-by">
+                <option value="0">None</option>
+                <option value="1">Best Selling</option>
+                <option value="2">Critic Score</option>
+                <option value="3">User Score</option>
+            </select>
         </div>
+
+        <div class="search-algorithm" id="search-algorithm">
+            <p>Search Algorithm: </p>
+            <select>
+                <option value="DFS">DFS</option>
+                <option value="BFS">BFS</option>
+            </select>
+        </div>
+
     </section>
     
+    <div class="filter-button">
+            <button><b>Apply Filters</b></button>
+    </div>
     
 
     <section id="intro" class="Game-Section">

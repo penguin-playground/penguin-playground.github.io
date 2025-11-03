@@ -48,10 +48,10 @@ section {
     justify-content: center;
     align-items: center;
     color: #0c3776;
-    gap: 27px;
-    width: 60%;
-    max-width: 450px;
-    min-width: 400px;
+    gap: 20px;
+    width: 70%;
+    max-width: 480px;
+    min-width: 450px;
     height: 40px;
     background-color: #eaeab3;
     margin-right: auto;
@@ -62,21 +62,8 @@ section {
 
 
 
-
-/*
-.platform-dropdown, .genre-dropdown, .publisher-dropdown, .year-dropdown, .sort-by-dropdown {
-    position: relative;
-}*/
-
-
-.dropdown-button h4 {
-    font-weight: normal;
-    font-size: 17px;
-}
-
 .dropdown-button:hover h4 {
-    font-weight: bold;
-    font-size: 16px;
+    text-shadow: 1.5px 1.5px rgb(231, 209, 96);
 }
 
 .dropdown-content1 {
@@ -154,6 +141,21 @@ section {
     display: block;
 }
 
+.dropdown-content6 {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content6 p {
+    color: #0c3776;
+    text-decoration: none;
+    display: block;
+}
+
 .dropdown-button:hover div {
     display: block;
 }
@@ -165,27 +167,56 @@ section {
     display: flex;
 }
 
-.search-and-apply {
+.search-and-select {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 0;
-    padding-top: 15px;
+    padding-top: 20px;
     width: 80%;
     margin-right: auto;
     margin-left: auto;
     max-width: 700px;
-
+    padding-bottom: 15px;
 }
 
+.search-and-select p {
+    color: #eaeab3;
+    height: 10px;
+    font-size: 16px;
+    text-align: center;
+}
 
-input {
-    /*margin-left: 7%;*/
+input, select {
     background-color: #eaeab3;
     color: #0c3776;
     border: 2px solid #0a2f65;
     border-radius: 7px;
     text-align: center;
+}
+
+.search-algorithm select {
+    width: 120px;
+}
+
+.game-title input {
+    width: 140px;
+}
+
+
+input {
+    height: 17px;
+}
+
+select {
+    height: 25px;
+}
+
+.filter-button {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    margin-top: 0;
 }
 
 button {
@@ -194,7 +225,7 @@ button {
     border: 1px solid #d3d3a4;
     border-radius: 7px;
     text-align: center;
-    width: 100px;
+    width: 110px;
     height: 30px;
 }
 
