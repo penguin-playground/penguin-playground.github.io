@@ -58,8 +58,10 @@ function buildAvlTree(){
         })
 }
 var input = document.querySelector('input[name=tagify-publisher]');
+var input1 = document.querySelector('input[name=tagify-publisher]');
+var input2 = document.querySelector('input[name=tagify-developer]');
 
-new Tagify(input, {
+new Tagify(input1, {
     whitelist: [
         { value: "Nintendo", full: "Nintendo" },
         { value: "Microsoft Game Studios", full: "Microsoft Game Studios" },
@@ -653,4 +655,20 @@ new Tagify(input, {
         escapeHTML: false // allows HTML inside each suggestion item
     }
 })
+
+new Tagify(input2, {
+    whitelist: [
+        { value: "Nintendo", full: "Nintendo" },
+    ],
+    enforceWhitelist: true,
+    dropdown: {
+        mapValueTo: 'full',
+        classname: 'tagify__dropdown--custom',
+        enabled: 0, // shows the suggestiosn dropdown once field is focused
+        RTL: false,
+        escapeHTML: false // allows HTML inside each suggestion item
+    }
+})
+
+
 
