@@ -282,4 +282,9 @@ class AVL {
     }
 }
 
-module.exports = AVL;
+module.exports = {
+    AVL,
+    globalSalesComparison,
+    criticScoreComparison,
+    userScoreComparison
+}

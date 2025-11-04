@@ -1,8 +1,7 @@
 const apiKey = "234f4811a29b4c78a8d5561438f2e01b";
 const apiURL = `https://api.rawg.io/api/games?key=${apiKey}&page_size=6`;
 const gameContainer = document.getElementById("games-container");
-const AVL = require('./AVL')
-const CSVinfo = require('./readCSV')
+const {AVL, globalSalesComparison, criticScoreComparison, userScoreComparison} = require('./AVL')
 
 
 
@@ -33,9 +32,9 @@ function buildAvlTree(){
         })
         .then(data => {
             for(let i = 0; i < data.length; i++){
-                salesTree.root = salesTree.insertNode(this.root, game)
-                criticTree.root = criticTree.insertNode(this.root, game)
-                userTree.root = userTree.insertNode(this.root, game)
+                salesTree.root = salesTree.insertNode(this.root,data[i])
+                criticTree.root = criticTree.insertNode(this.root,data[i])
+                userTree.root = userTree.insertNode(this.root,data[i])
             }
         })
 }
