@@ -38,7 +38,6 @@ select.addEventListener('change', function() {
     }
 });
 
-<<<<<<< HEAD
 function buildAvlTree(){
     let salesTree = new AVL(globalSalesComparison)
     let criticTree = new AVL(criticScoreComparison)
@@ -59,7 +58,6 @@ function buildAvlTree(){
             }
         })
 }
-=======
 var input = document.querySelector('input[name=tagify-publisher]');
 
 new Tagify(input, {
@@ -656,5 +654,4 @@ new Tagify(input, {
         escapeHTML: false // allows HTML inside each suggestion item
     }
 })
->>>>>>> ba20039 (Added more filters, including the publisher wish makes use of the Tagify library)
 
