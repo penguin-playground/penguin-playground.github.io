@@ -282,9 +282,15 @@ class AVL {
     }
 }
 
+window.AVL = AVL;
+window.globalSalesComparison = globalSalesComparison;
+window.criticScoreComparison = criticScoreComparison;
+window.userScoreComparison = userScoreComparison;
+
+/*
 module.exports = {
     AVL,
     globalSalesComparison,
     criticScoreComparison,
     userScoreComparison
-}
+}*/
