@@ -8,37 +8,78 @@ class Node {
     }
 }
 
+
+//Comparing games helper function
+function globalSalesComparison(a, b) {
+    if(a.Global_Sales == "N/A" || a.Global_Sales =="tbd"){
+        return -1;
+    }
+    if(b.Global_Sales == "N/A" || b.Global_Sales =="tbd"){
+        return 1;
+    }
+    const salesA = Number(a.Global_Sales);
+    const salesB = Number(b.Global_Sales);
+    if (salesA < salesB) return 1;
+    if (salesA > salesB) return -1;
+    //Check names if first attributes are equal
+    const nameA = a.Name.toLowerCase();
+    const nameB = b.Name.toLowerCase();
+    if (nameA < nameB) return 1;
+    if (nameA > nameB) return -1;
+    //Return 0 if completely equal
+    return 0;
+}
+function criticScoreComparison(a, b) {
+    if(a.Critic_Score == "N/A" || a.Critic_Score =="tbd"){
+        return -1;
+    }
+    if(b.Critic_Score == "N/A" || b.Critic_Score =="tbd"){
+        return 1;
+    }
+    const criticScoreA = Number(a.Critic_Score);
+    const criticScoreB = Number(b.Critic_Score);
+    if (criticScoreA < criticScoreB) return 1;
+    if (criticScoreA > criticScoreB) return -1;
+    //Check names if first attributes are equal
+    const nameA = a.Name.toLowerCase();
+    const nameB = b.Name.toLowerCase();
+    if (nameA < nameB) return 1;
+    if (nameA > nameB) return -1;
+    //Return 0 if completely equal
+    return 0;
+}
+function userScoreComparison(a, b) {
+    if(a.User_Score == "N/A" || a.User_Score =="tbd"){
+        return -1;
+    }
+    if(b.User_Score == "N/A" || b.User_Score =="tbd"){
+        return 1;
+    }
+    const userScoreA = Number(a.User_Score);
+    const userScoreB = Number(b.User_Score);
+    if (userScoreA < userScoreB) return 1;
+    if (userScoreA > userScoreB) return -1;
+    //Check names if first attributes are equal
+    const nameA = a.Name.toLowerCase();
+    const nameB = b.Name.toLowerCase();
+    if (nameA < nameB) return 1;
+    if (nameA > nameB) return -1;
+    //Return 0 if completely equal
+    return 0;
+}
 //SOURCE SECTION
 class AVL {
     //Constructor
-    constructor() {
+    constructor(comparisonFunction) {
         this.root = null;
-    }
-
-    //Comparing games helper function
-    compareGames(a, b) {
-        const salesA = Number(a.Global_Sales);
-        const salesB = Number(b.Global_Sales);
-        if (salesA < salesB) return -1;
-        if (salesA > salesB) return 1;
-        //Check names if first attributes are equal
-        const nameA = a.Name.toLowerCase();
-        const nameB = b.Name.toLowerCase();
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        //Return 0 if completely equal
-        return 0;
+        this.comparisonFunction = comparisonFunction;
     }
     
     //Inserting node to BST (no checks besides balancing)
     insertNode(root, game) {
-        //Doesn't add invalid cells
-        if (game.Global_Sales === "N/A" || game.Global_Sales === "tbd") {
-            return root;
-        }
         if (root === null) return new Node(game);
         //Standard insertion with call to helper function
-        const cmp = this.compareGames(game, root.game);
+        const cmp = this.comparisonFunction(game, root.game);
         if (cmp < 0) {
             root.left = this.insertNode(root.left, game);
         } else {
@@ -50,20 +91,20 @@ class AVL {
         let balance = this.getBalanceFactor(root);
         //All rotation cases
         // LL Case
-        if (balance > 1 && this.compareGames(game, root.left.game) < 0) {
+        if (balance > 1 && this.comparisonFunction(game, root.left.game) < 0) {
             return this.rotateRight(root);
         }
         // RR Case
-        if (balance < -1 && this.compareGames(game, root.right.game) > 0) {
+        if (balance < -1 && this.comparisonFunction(game, root.right.game) > 0) {
             return this.rotateLeft(root);
         }
         // LR Case
-        if (balance > 1 && this.compareGames(game, root.left.game) > 0) {
+        if (balance > 1 && this.comparisonFunction(game, root.left.game) > 0) {
             root.left = this.rotateLeft(root.left);
             return this.rotateRight(root);
         }
         // RL Case
-        if (balance < -1 && this.compareGames(game, root.right.game) < 0) {
+        if (balance < -1 && this.comparisonFunction(game, root.right.game) < 0) {
             root.right = this.rotateRight(root.right);
             return this.rotateLeft(root);
         }

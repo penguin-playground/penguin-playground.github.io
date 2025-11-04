@@ -1,3 +1,24 @@
+const fs = require("fs");
+const csv = require("csv-parser");
+const results = [];
+fs.createReadStream('Raw Data.csv')
+    .pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+        const gameObjects = CSVResultsToObject(results); //stores gameObjList
+        const json = JSON.stringify(gameObjects, null, 0)
+        fs.writeFile('data.json', json, (err) => {
+            if(err){
+                console.log("Something went wrong with creating json file");
+            } else {
+                console.log("Converted to json")
+            }
+        });
+    })
+    .on('error', (err) => {
+        console.log("Error in fs.createReadStream")
+    })
+
 class Game {
     constructor(Name, Platform, Year_of_Release, Genre, Publisher, Global_Sales, Critic_Score, User_Score, Developer, Rating) {
         this.Name = Name;
