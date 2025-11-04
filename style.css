@@ -66,7 +66,52 @@ section {
     text-shadow: 1.5px 1.5px rgb(231, 209, 96);
 }
 
-.dropdown-button div {
+.dropdown-button .rating-content {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-button .platform-content {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-button .year-content {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-button .genre-content {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-button .publisher-content {
+    display: none;
+    position: absolute;
+    background-color: #eaeab3;
+    padding-left: 10px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-button .developer-content {
     display: none;
     position: absolute;
     background-color: #eaeab3;
@@ -113,6 +158,51 @@ section {
     background-color: #eaeab3;
 }
 
+
+.dropdown-button:hover .publisher-content {
+    width: 200px;
+    max-height: 600px;
+}
+
+
+.checkbox-list {
+    list-style: none;
+    columns: 4;
+    column-gap: 20px;
+}
+
+.rating-content ul {
+    columns: 1;
+}
+
+.genre-content ul {
+    columns: 3;
+}
+
+.checkbox-list li {
+    break-inside: avoid;
+    margin-bottom: 6px;
+}
+
+
+.tagify-publisher {
+    width: 100%;
+    min-width: 200px;
+    box-sizing: border-box;
+    display: block;
+    padding: 5px;
+
+}
+
+.tagify {
+    height: 100%;
+    width: 100%;
+}
+
+.tagify__input {
+    min-width: 50px;
+    max-width: 80px;
+}
 
 
 
