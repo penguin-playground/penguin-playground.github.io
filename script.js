@@ -38,7 +38,7 @@ fetch('data.json')
 var input1 = document.querySelector('input[name=tagify-publisher]');
 var input2 = document.querySelector('input[name=tagify-developer]');
 
-new Tagify(input1, {
+var publisherTagify = new Tagify(input1, {
     whitelist: [
         { value: "Nintendo", full: "Nintendo" },
         { value: "Microsoft Game Studios", full: "Microsoft Game Studios" },
@@ -633,7 +633,7 @@ new Tagify(input1, {
     }
 })
 
-new Tagify(input2, {
+var developerTagify = new Tagify(input2, {
     whitelist: [
         { value: "Nintendo", full: "Nintendo" },
     ],
@@ -669,23 +669,39 @@ applyBtn.addEventListener('click', () => {
     const genreFilters = Array.from(genreCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
     const yearFilters = Array.from(yearCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
     const ratingFilters = Array.from(ratingCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
-
+    const publisherFilters = publisherTagify.value.map(tag => tag.value);
+    const developerFilters = developerTagify.value.map(tag => tag.value);
 
     if (platformFilters.length > 0) filters.Platform = platformFilters;
     if (genreFilters.length > 0) filters.Genre = genreFilters;
     if (yearFilters.length > 0) filters.Year = yearFilters;
     if (ratingFilters.length > 0) filters.Rating = ratingFilters;
+    if (publisherFilters.length > 0) filters.Publisher = publisherFilters;
+    if (developerFilters.length > 0) filters.Developer = developerFilters;
 
     if (gameTitleInput.value.trim() !== '') {
         filters.Name = gameTitleInput.value.trim();
     }
 
-    const filteredGames = salesTree.InorderSearch(filters);
-    if (filteredGames.length > 0) {
-        console.log('First game:', filteredGames[0].Name);
+    let filteredGames = [];
+    if (sortSelect.value == 'best-selling') {
+        filteredGames = salesTree.InorderSearch(filters);
+    }
+    else if (sortSelect.value == 'critic-score') {
+        filteredGames = criticTree.InorderSearch(filters);
+    }
+    else if (sortSelect.value == 'user-score') {
+        filteredGames = userTree.InorderSearch(filters);
     }
     else {
-        console.log('No games found with the applied filters.');
+        const searchAlgoSelect = document.getElementById('search-algorithm');
+
+        if (searchAlgoSelect.value == 'DFS') {
+            filteredGames = salesTree.InorderSearch(filters);
+        }
+        else {
+            filteredGames = salesTree.BFS(filters);
+        }
     }
 
 
@@ -708,6 +724,7 @@ applyBtn.addEventListener('click', () => {
             <p><strong>Year:</strong> ${game.Year}</p>
             <p><strong>Genre:</strong> ${game.Genre}</p>
             <p><strong>Publisher:</strong> ${game.Publisher}</p>
+            <p><strong>Developer:</strong> ${game.Developer}</p>
             <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
         `;
 
