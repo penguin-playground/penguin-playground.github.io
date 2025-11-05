@@ -682,7 +682,7 @@ applyBtn.addEventListener('click', () => {
 
     const filteredGames = salesTree.InorderSearch(filters);
     if (filteredGames.length > 0) {
-        console.log('First game:', filteredGames[0].Name);
+        console.log('First game:', filteredGames[0]);
     }
     else {
         console.log('No games found with the applied filters.');
