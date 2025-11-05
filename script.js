@@ -720,7 +720,7 @@ applyBtn.addEventListener('click', () => {
         div.innerHTML = `
             <h3>${game.Name}</h3>
             <p><strong>Platform:</strong> ${game.Platform}</p>
-            <p><strong>Year:</strong> ${game.Year}</p>
+            <p><strong>Year:</strong> ${game.Year_of_Release}</p>
             <p><strong>Genre:</strong> ${game.Genre}</p>
             <p><strong>Publisher:</strong> ${game.Publisher}</p>
             <p><strong>Developer:</strong> ${game.Developer}</p>
