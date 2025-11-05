@@ -662,6 +662,7 @@ applyBtn.addEventListener('click', () => {
 
     const gameTitleInput = document.querySelector('input[name="game-search"]');
     const sortSelect = document.getElementById('sort-by');
+    const searchAlgoSelect = document.getElementById('search-algorithm');
     // sortSelect.value = the selected sort option;
 
 
@@ -694,8 +695,6 @@ applyBtn.addEventListener('click', () => {
         filteredGames = userTree.InorderSearch(filters);
     }
     else {
-        const searchAlgoSelect = document.getElementById('search-algorithm');
-
         if (searchAlgoSelect.value == 'DFS') {
             filteredGames = salesTree.InorderSearch(filters);
         }
