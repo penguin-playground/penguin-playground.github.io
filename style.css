@@ -1,7 +1,7 @@
 body {
     background-image: url('images/Night_Sky.jpg');
     background-repeat: no-repeat;
-    background-size: 100vw 100vh;;
+    background-size: cover;
     background-position: center;
     background-color: #061c3d;
     background-attachment: fixed;
