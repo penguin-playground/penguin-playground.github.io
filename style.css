@@ -4,6 +4,7 @@ body {
     background-size: cover;
     background-position: center;
     background-color: #061c3d;
+    background-attachment: fixed;
     color: #161A1D;
     font-family: Arial, sans-serif;
     padding: 20px;
