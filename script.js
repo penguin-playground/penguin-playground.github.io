@@ -675,7 +675,7 @@ applyBtn.addEventListener('click', () => {
 
     if (platformFilters.length > 0) filters.Platform = platformFilters;
     if (genreFilters.length > 0) filters.Genre = genreFilters;
-    if (yearFilters.length > 0) filters.Year = yearFilters;
+    if (yearFilters.length > 0) filters.Year_of_Release = yearFilters;
     if (ratingFilters.length > 0) filters.Rating = ratingFilters;
     if (publisherFilters.length > 0) filters.Publisher = publisherFilters;
     if (developerFilters.length > 0) filters.Developer = developerFilters;
