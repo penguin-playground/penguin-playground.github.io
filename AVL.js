@@ -186,7 +186,7 @@ class AVL {
         if (!node) return;
         this.inorderHelper(node.right, outputV, filters);
         if (this.filterGame(node.game, filters)) {
-            outputV.push(node.game.Name);
+            outputV.push(node.game);
         }
         this.inorderHelper(node.left, outputV, filters);
     }

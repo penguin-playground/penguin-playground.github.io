@@ -677,15 +677,41 @@ applyBtn.addEventListener('click', () => {
     if (ratingFilters.length > 0) filters.Rating = ratingFilters;
 
     if (gameTitleInput.value.trim() !== '') {
-        filters.Title = gameTitleInput.value.trim();
+        filters.Name = gameTitleInput.value.trim();
     }
 
     const filteredGames = salesTree.InorderSearch(filters);
     if (filteredGames.length > 0) {
-        console.log('First game:', filteredGames[0]);
+        console.log('First game:', filteredGames[0].Name);
     }
     else {
         console.log('No games found with the applied filters.');
     }
+
+
+    const gameContainer = document.getElementById('game-results');
+    gameContainer.innerHTML = ""; // Clear previous results
+
+    if (filteredGames.length === 0) {
+        gameContainer.innerHTML = "<p>No games found with the applied filters.</p>";
+        return;
+    }
+
+    filteredGames.forEach(game => {
+
+        const div = document.createElement('div');
+        div.classList.add('game-item');
+
+        div.innerHTML = `
+            <h3>${game.Name}</h3>
+            <p><strong>Platform:</strong> ${game.Platform}</p>
+            <p><strong>Year:</strong> ${game.Year}</p>
+            <p><strong>Genre:</strong> ${game.Genre}</p>
+            <p><strong>Publisher:</strong> ${game.Publisher}</p>
+            <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
+        `;
+
+        gameContainer.appendChild(div);
+    });
     
 });
