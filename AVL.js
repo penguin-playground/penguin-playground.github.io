@@ -19,13 +19,13 @@ function globalSalesComparison(a, b) {
     }
     const salesA = Number(a.Global_Sales);
     const salesB = Number(b.Global_Sales);
-    if (salesA < salesB) return 1;
-    if (salesA > salesB) return -1;
+    if (salesA < salesB) return -1;
+    if (salesA > salesB) return 1;
     //Check names if first attributes are equal
     const nameA = a.Name.toLowerCase();
     const nameB = b.Name.toLowerCase();
-    if (nameA < nameB) return 1;
-    if (nameA > nameB) return -1;
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
     //Return 0 if completely equal
     return 0;
 }
@@ -38,13 +38,13 @@ function criticScoreComparison(a, b) {
     }
     const criticScoreA = Number(a.Critic_Score);
     const criticScoreB = Number(b.Critic_Score);
-    if (criticScoreA < criticScoreB) return 1;
-    if (criticScoreA > criticScoreB) return -1;
+    if (criticScoreA < criticScoreB) return -1;
+    if (criticScoreA > criticScoreB) return 1;
     //Check names if first attributes are equal
     const nameA = a.Name.toLowerCase();
     const nameB = b.Name.toLowerCase();
-    if (nameA < nameB) return 1;
-    if (nameA > nameB) return -1;
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
     //Return 0 if completely equal
     return 0;
 }
@@ -57,13 +57,13 @@ function userScoreComparison(a, b) {
     }
     const userScoreA = Number(a.User_Score);
     const userScoreB = Number(b.User_Score);
-    if (userScoreA < userScoreB) return 1;
-    if (userScoreA > userScoreB) return -1;
+    if (userScoreA < userScoreB) return -1;
+    if (userScoreA > userScoreB) return 1;
     //Check names if first attributes are equal
     const nameA = a.Name.toLowerCase();
     const nameB = b.Name.toLowerCase();
-    if (nameA < nameB) return 1;
-    if (nameA > nameB) return -1;
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
     //Return 0 if completely equal
     return 0;
 }
