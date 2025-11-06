@@ -1,14 +1,22 @@
 const apiKey = "234f4811a29b4c78a8d5561438f2e01b";
 const apiURL = `https://api.rawg.io/api/games?key=${apiKey}&page_size=6`;
 const select = document.getElementById('sort-by');
-const div = document.getElementById('search-algorithm');
+const searchAlgorithmBtn = document.getElementById('search-algorithm');
+const pElementSearchAlgorithm = document.getElementById('search-algorithm-p');
+const previousBtn = document.getElementById('previousBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+previousBtn.style.display = 'none';
+nextBtn.style.display = 'none';
 
 select.addEventListener('change', function() {
     if (this.value != '0') {
-        div.style.display = 'none';
+        searchAlgorithmBtn.style.display = 'none';
+        pElementSearchAlgorithm.style.display = 'none';
     }
     else {
-        div.style.display = 'block';
+        searchAlgorithmBtn.style.display = 'block';
+        pElementSearchAlgorithm.style.display = 'block';
     }
 });
 
@@ -647,6 +655,70 @@ var developerTagify = new Tagify(input2, {
     }
 })
 
+let filteredGames = [];
+let currentPage = 0;
+const gamesPerPage = 10;
+
+nextBtn.addEventListener('click', () => {
+    if ((currentPage + 1) * gamesPerPage < filteredGames.length) {
+        currentPage++;
+        renderGamesPage();
+    }
+});
+
+previousBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+        currentPage--;
+        renderGamesPage();
+    }
+});
+
+function renderGamesPage() {
+    const gameContainer = document.getElementById('game-results');
+    gameContainer.innerHTML = ""; // Clear previous results
+
+    if (filteredGames.length === 0) {
+        gameContainer.innerHTML = "<p>No games found with the applied filters.</p>";
+        return;
+    }
+    
+    const start = currentPage * gamesPerPage;
+    const end = start + gamesPerPage;
+    const gamesToDisplay = filteredGames.slice(start, end); 
+
+    gamesToDisplay.forEach(game => {
+        const div = document.createElement('div');
+        div.classList.add('game-item');
+        div.innerHTML = `
+            <h3>${game.Name}</h3>
+            <p><strong>Platform:</strong> ${game.Platform}</p>
+            <p><strong>Year:</strong> ${game.Year_of_Release}</p>
+            <p><strong>Genre:</strong> ${game.Genre}</p>
+            <p><strong>Publisher:</strong> ${game.Publisher}</p>
+            <p><strong>Developer:</strong> ${game.Developer}</p>
+            <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
+            <p><strong>Critic Score:</strong> ${game.Critic_Score}</p>
+            <p><strong>User Score:</strong> ${game.User_Score}</p>
+            <p><strong>Rating:</strong> ${game.Rating}</p>
+        `;
+
+        gameContainer.appendChild(div);
+    });
+
+    if (currentPage === 0) {
+        previousBtn.style.display = 'none';
+    }
+    else {
+        previousBtn.style.display = 'block';
+    }
+
+    if (end >= filteredGames.length) {
+        nextBtn.style.display = 'none';
+    }
+    else {
+        nextBtn.style.display = 'block';
+    }
+}
 
 const applyBtn = document.getElementById('applyBtn');
 applyBtn.addEventListener('click', () => {
@@ -684,7 +756,6 @@ applyBtn.addEventListener('click', () => {
         filters.Name = gameTitleInput.value.trim();
     }
 
-    let filteredGames = [];
     if (sortSelect.value == 'best-selling') {
         filteredGames = salesTree.InorderSearch(filters);
     }
@@ -712,6 +783,10 @@ applyBtn.addEventListener('click', () => {
         return;
     }
 
+    currentPage = 0;
+    renderGamesPage();
+
+    /*
     filteredGames.forEach(game => {
 
         const div = document.createElement('div');
@@ -725,9 +800,12 @@ applyBtn.addEventListener('click', () => {
             <p><strong>Publisher:</strong> ${game.Publisher}</p>
             <p><strong>Developer:</strong> ${game.Developer}</p>
             <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
+            <p><strong>Critic Score:</strong> ${game.Critic_Score}</p>
+            <p><strong>User Score:</strong> ${game.User_Score}</p>
+            <p><strong>Rating:</strong> ${game.Rating}</p>
         `;
 
         gameContainer.appendChild(div);
-    });
+    });*/
     
 });

@@ -231,12 +231,29 @@ section {
     text-align: center;
 }
 
+.previous-next-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 20px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 700px;
+    padding-bottom: 15px;
+}
+
 input, select {
     background-color: #eaeab3;
     color: #0c3776;
     border: 2px solid #0a2f65;
     border-radius: 7px;
     text-align: center;
+}
+
+.search-algorithm {
+    min-width: 120px;
 }
 
 .search-algorithm select {
