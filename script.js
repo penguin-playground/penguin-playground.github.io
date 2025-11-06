@@ -656,6 +656,7 @@ var developerTagify = new Tagify(input2, {
     }
 })
 
+
 let filteredGames = [];
 let currentPage = 0;
 const gamesPerPage = 10;
