@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+
 body {
     background-image: url('images/Night_Sky.jpg');
     background-repeat: no-repeat;
@@ -11,10 +19,6 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.dark-theme {
-    background-color: #161A1D;
-    color: #8690a2;
-}
 
 header {
     display: flex;
@@ -24,19 +28,10 @@ header {
     padding-top: 1rem;
 }
 
-.theme-toggle {
-    cursor: pointer;
-    text-decoration: underline;
-    color: #8690a2;
-    font-size: 1rem;
-}
-
-.theme-container {
-    display: flex;
-    justify-content: end;
-    color: #8690a2;
-    padding-bottom: 1rem;
-    padding-right: 3rem;
+header h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    padding-bottom: 10px;
 }
 
 section {
@@ -60,6 +55,8 @@ section {
     border: 2px solid #0a2f65;
     border-radius: 5px;
 }
+
+
 
 
 
@@ -264,6 +261,41 @@ input, select {
     width: 140px;
 }
 
+.game-item {
+    border: 2px solid #0a2f65;
+    border-radius: 10px;
+    max-width: 420px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 18px;
+}
+
+.game-name {
+    border-bottom: 2px solid #0a2f65;
+    padding: 4px 0;
+    text-align: center;
+}
+
+.game-name h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+}
+
+.game-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 24px;
+    gap: 24px;
+}
+
+.left-col, .right-col {
+    flex: 1;
+}
+
+.left-col p, .right-col p {
+    margin: 8px 0;
+}
+
 
 input {
     height: 17px;
@@ -311,7 +343,7 @@ input::placeholder {
     border: 2px solid #0a2f65;
 }
 
-.game-title {
+.game-section-info {
     text-align: center;
 }
 

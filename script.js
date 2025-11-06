@@ -5,6 +5,7 @@ const searchAlgorithmBtn = document.getElementById('search-algorithm');
 const pElementSearchAlgorithm = document.getElementById('search-algorithm-p');
 const previousBtn = document.getElementById('previousBtn');
 const nextBtn = document.getElementById('nextBtn');
+const gameSectionInfo = document.querySelector('.game-section-info');
 
 previousBtn.style.display = 'none';
 nextBtn.style.display = 'none';
@@ -690,16 +691,24 @@ function renderGamesPage() {
         const div = document.createElement('div');
         div.classList.add('game-item');
         div.innerHTML = `
-            <h3>${game.Name}</h3>
-            <p><strong>Platform:</strong> ${game.Platform}</p>
-            <p><strong>Year:</strong> ${game.Year_of_Release}</p>
-            <p><strong>Genre:</strong> ${game.Genre}</p>
-            <p><strong>Publisher:</strong> ${game.Publisher}</p>
-            <p><strong>Developer:</strong> ${game.Developer}</p>
-            <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
-            <p><strong>Critic Score:</strong> ${game.Critic_Score}</p>
-            <p><strong>User Score:</strong> ${game.User_Score}</p>
-            <p><strong>Rating:</strong> ${game.Rating}</p>
+            <div class="game-name">
+                <h3>${game.Name}</h3>
+            </div> 
+            <div class="game-details">
+                <div class="left-side">
+                    <p><strong>Platform:</strong> ${game.Platform}</p>
+                    <p><strong>Year:</strong> ${game.Year_of_Release}</p>
+                    <p><strong>Genre:</strong> ${game.Genre}</p>
+                    <p><strong>Publisher:</strong> ${game.Publisher}</p>
+                    <p><strong>Developer:</strong> ${game.Developer}</p>
+                </div>
+                <div class="right-side">
+                    <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
+                    <p><strong>Critic Score:</strong> ${game.Critic_Score}</p>
+                    <p><strong>User Score:</strong> ${game.User_Score}</p>
+                    <p><strong>Rating:</strong> ${game.Rating}</p>
+                </div>
+            </div>
         `;
 
         gameContainer.appendChild(div);
@@ -779,9 +788,11 @@ applyBtn.addEventListener('click', () => {
     gameContainer.innerHTML = ""; // Clear previous results
 
     if (filteredGames.length === 0) {
-        gameContainer.innerHTML = "<p>No games found with the applied filters.</p>";
+        gameSectionInfo.style.display = 'block';
         return;
     }
+
+    gameSectionInfo.style.display = 'none'
 
     currentPage = 0;
     renderGamesPage();
