@@ -7,7 +7,7 @@
 
 
 body {
-    background-image: url('images/Night_Sky.jpg');
+    background-image: url('images/speed.gif');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -24,7 +24,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #eaeab3;
+    color: #ffffff; /* Website title */
     padding-top: 1rem;
 }
 
@@ -43,16 +43,16 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #0c3776;
+    color: #ffffff; /* Filter names */
     gap: 20px;
     width: 70%;
     max-width: 480px;
     min-width: 450px;
     height: 40px;
-    background-color: #eaeab3;
+    background-color: #1b1b1b; /* Filter bg */
     margin-right: auto;
     margin-left: auto;
-    border: 2px solid #0a2f65;
+    border: 2px solid #ffb347; /* Filter box */
     border-radius: 5px;
 }
 
@@ -61,13 +61,13 @@ section {
 
 
 .dropdown-button:hover h4 {
-    text-shadow: 1.5px 1.5px rgb(231, 209, 96);
+    text-shadow: 1.5px 1.5px rgb(0,0,0);
 }
 
 .dropdown-button .rating-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b; /* Rating dropdown */
     padding-left: 10px;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -76,7 +76,7 @@ section {
 .dropdown-button .platform-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b;
     padding-left: 10px;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -85,7 +85,7 @@ section {
 .dropdown-button .year-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b;
     padding-left: 10px;
     padding-right: 10px;
     min-width: 200px;
@@ -96,7 +96,7 @@ section {
 .dropdown-button .genre-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b;
     padding-left: 10px;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -105,7 +105,7 @@ section {
 .dropdown-button .publisher-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b;
     padding-left: 10px;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -114,7 +114,7 @@ section {
 .dropdown-button .developer-content {
     display: none;
     position: absolute;
-    background-color: #eaeab3;
+    background-color: #1b1b1b;
     padding-left: 10px;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -218,7 +218,7 @@ ul {
 }
 
 .search-and-select p {
-    color: #eaeab3;
+    color: #ffffff; /* 2nd row titles */
     height: 10px;
     font-size: 16px;
     text-align: center;
@@ -238,9 +238,9 @@ ul {
 }
 
 input, select {
-    background-color: #eaeab3;
-    color: #0c3776;
-    border: 2px solid #0a2f65;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    border: 2px solid #ffb347;
     border-radius: 7px;
     text-align: center;
 }
@@ -258,7 +258,7 @@ input, select {
 }
 
 .game-item {
-    border: 2px solid #0a2f65;
+    border: 2px solid #ffb347; /* Game top border */
     border-radius: 10px;
     max-width: 420px;
     margin-right: auto;
@@ -267,7 +267,7 @@ input, select {
 }
 
 .game-item:hover {
-    background-color: rgb(192, 240, 192);
+    background-color: rgb(27,27,27);
 }
 
 .game-details {
@@ -287,7 +287,7 @@ input, select {
 }
 
 .game-name {
-    border-bottom: 2px solid #0a2f65;
+    border-bottom: 2px solid #ffb347; /* Game bottom */
     padding: 4px 0;
     text-align: center;
 }
@@ -324,9 +324,9 @@ select {
 
 
 button {
-    background-color: #0d3e86;
-    color: #d3d3a4;
-    border: 1px solid #d3d3a4;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    border: 1px solid #ffb347;
     border-radius: 7px;
     text-align: center;
     width: 110px;
@@ -334,23 +334,23 @@ button {
 }
 
 button:hover {
-    border: 2px solid #d3d3a4;
+    border: 2px solid #ffb347;
 }
 
 input::placeholder {
-    color: #0a2e659c;
+    color: #B0B0B0;
 }
 
 
 .Game-Section {
     width: 80%;
-    background-color: #eaeab3;
+    background-color: #1b1b1b; /* Game list bg */
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
     max-width: 600px;
-    color: #0c3776;
-    border: 2px solid #0a2f65;
+    color: #ffffff; /* Game title */
+    border: 2px solid #ffb347; /* Game list border */
 }
 
 .game-section-info {
