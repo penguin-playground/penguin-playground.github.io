@@ -173,9 +173,9 @@ class AVL {
         if (!filters || Object.keys(filters).length === 0) return true;
         for (let key in filters) {
             if (Array.isArray(filters[key])) {
-                if (!filters[key].some(f => String(game[key]).includes(String(f)))) return false;
+                if (!filters[key].some(f => String(game[key]).toLowerCase().includes(String(f).toLowerCase()))) return false;
             } else {
-                if (!String(game[key]).includes(String(filters[key]))) return false;
+                if (!String(game[key]).toLowerCase().includes(String(filters[key]).toLowerCase())) return false;
             }
         }
         return true;
