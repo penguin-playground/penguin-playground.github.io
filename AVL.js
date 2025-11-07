@@ -182,19 +182,21 @@ class AVL {
     }
 
     //Used for printInorder to traverse recursively with node and output parameter
-    inorderHelper(node, outputV, filters) {
+    inorderHelper(node, outputV, filters, count) {
         if (!node) return;
-        this.inorderHelper(node.right, outputV, filters);
+        this.inorderHelper(node.right, outputV, filters, count);
+        count.nodesPassed++;
         if (this.filterGame(node.game, filters)) {
-            outputV.push(node.game);
+            outputV.push({...node.game, nodesPassed: count.nodesPassed});
         }
-        this.inorderHelper(node.left, outputV, filters);
+        this.inorderHelper(node.left, outputV, filters, count);
     }
 
     //Inorder search that primarily calls helper function
     InorderSearch(filters = {}) {
         let outputV = [];
-        this.inorderHelper(this.root, outputV, filters);
+        let count = {nodesPassed: 0};
+        this.inorderHelper(this.root, outputV, filters, count);
         return outputV;
     }
 
@@ -205,10 +207,12 @@ class AVL {
         let queue = [];
         queue.push(this.root);
         let outputArr = [];
+        let nodesPassed = 0;
         while(queue.length > 0){
             let currentNode = queue.shift()
+            nodesPassed++;
             if(this.filterGame(currentNode.game, filters)){ //check if the current game object matches the filters
-                outputArr.push(currentNode.game)
+                outputArr.push({...currentNode.game, nodesPassed})
             }
             if(currentNode.left){
                 queue.push(currentNode.left)
