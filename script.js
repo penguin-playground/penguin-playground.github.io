@@ -690,7 +690,7 @@ function renderGamesPage() {
                     <p><strong>Year:</strong> ${game.Year_of_Release}</p>
                     <p><strong>Genre:</strong> ${game.Genre}</p>
                     <p><strong>Publisher:</strong> ${game.Publisher}</p>
-                    <p><strong>Publisher:</strong> ${game.Developer}</p>
+                    <p><strong>Developer:</strong> ${game.Developer}</p>
                 </div>
                 <div class="right-side">
                     <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
