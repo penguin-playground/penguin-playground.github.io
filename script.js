@@ -6,9 +6,12 @@ const pElementSearchAlgorithm = document.getElementById('search-algorithm-p');
 const previousBtn = document.getElementById('previousBtn');
 const nextBtn = document.getElementById('nextBtn');
 const gameSectionInfo = document.querySelector('.game-section-info');
+const numOfNodesDiv = document.getElementById('number-of-nodes');
+const numOfNodesText = document.getElementById('nodes-visited');
 
 previousBtn.style.display = 'none';
 nextBtn.style.display = 'none';
+numOfNodesDiv.style.display = 'none';   
 
 select.addEventListener('change', function() {
     if (this.value != '0') {
@@ -45,7 +48,6 @@ fetch('data.json')
 
 
 var input1 = document.querySelector('input[name=tagify-publisher]');
-var input2 = document.querySelector('input[name=tagify-developer]');
 
 var publisherTagify = new Tagify(input1, {
     whitelist: [
@@ -642,20 +644,6 @@ var publisherTagify = new Tagify(input1, {
     }
 })
 
-var developerTagify = new Tagify(input2, {
-    whitelist: [
-        { value: "Nintendo", full: "Nintendo" },
-    ],
-    enforceWhitelist: true,
-    dropdown: {
-        mapValueTo: 'full',
-        classname: 'tagify__dropdown--custom',
-        enabled: 0, // shows the suggestiosn dropdown once field is focused
-        RTL: false,
-        escapeHTML: false // allows HTML inside each suggestion item
-    }
-})
-
 
 let filteredGames = [];
 let currentPage = 0;
@@ -687,6 +675,7 @@ function renderGamesPage() {
     const start = currentPage * gamesPerPage;
     const end = start + gamesPerPage;
     const gamesToDisplay = filteredGames.slice(start, end); 
+
 
     gamesToDisplay.forEach(game => {
         const div = document.createElement('div');
@@ -735,7 +724,7 @@ applyBtn.addEventListener('click', () => {
     console.log('hi');
 
     const filters = {};
-    // genre: [platformer,] 
+    // genre: [platformer, adventure], platform: [PC, PS4], year: [2020, 2021], rating: [E, T] etc
 
     const platformCheckboxes = document.querySelectorAll('.platform-content input[type="checkbox"]');
     const genreCheckboxes = document.querySelectorAll('.genre-content input[type="checkbox"]');
@@ -790,10 +779,14 @@ applyBtn.addEventListener('click', () => {
 
     if (filteredGames.length === 0) {
         gameSectionInfo.style.display = 'block';
+        numOfNodesDiv.style.display = 'none';
         return;
     }
 
     gameSectionInfo.style.display = 'none'
+    numOfNodesDiv.style.display = 'block'
+    numOfNodesDiv.innerText = `Number of nodes until first match: ${filteredgames[0].nodesPassed()}`
+
 
     currentPage = 0;
     renderGamesPage();
