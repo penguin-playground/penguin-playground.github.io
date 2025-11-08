@@ -11,10 +11,10 @@ class Node {
 
 //Comparing games helper function
 function globalSalesComparison(a, b) {
-    if(a.Global_Sales == "N/A" || a.Global_Sales =="tbd"){
+    if(a.Global_Sales == "Not Specified" || a.Global_Sales =="tbd"){
         return -1;
     }
-    if(b.Global_Sales == "N/A" || b.Global_Sales =="tbd"){
+    if(b.Global_Sales == "Not Specified" || b.Global_Sales =="tbd"){
         return 1;
     }
     const salesA = Number(a.Global_Sales);
@@ -30,10 +30,10 @@ function globalSalesComparison(a, b) {
     return 0;
 }
 function criticScoreComparison(a, b) {
-    if(a.Critic_Score == "N/A" || a.Critic_Score =="tbd"){
+    if(a.Critic_Score == "?" || a.Critic_Score =="tbd"){
         return -1;
     }
-    if(b.Critic_Score == "N/A" || b.Critic_Score =="tbd"){
+    if(b.Critic_Score == "?" || b.Critic_Score =="tbd"){
         return 1;
     }
     const criticScoreA = Number(a.Critic_Score);
@@ -49,10 +49,10 @@ function criticScoreComparison(a, b) {
     return 0;
 }
 function userScoreComparison(a, b) {
-    if(a.User_Score == "N/A" || a.User_Score =="tbd"){
+    if(a.User_Score == "?" || a.User_Score =="tbd"){
         return -1;
     }
-    if(b.User_Score == "N/A" || b.User_Score =="tbd"){
+    if(b.User_Score == "?" || b.User_Score =="tbd"){
         return 1;
     }
     const userScoreA = Number(a.User_Score);
