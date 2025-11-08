@@ -693,8 +693,19 @@ function renderGamesPage() {
                 </div>
                 <div class="right-side">
                     <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
-                    <p><strong>Critic Score:</strong> ${game.Critic_Score}/100</p>
-                    <p><strong>User Score:</strong> ${game.User_Score}/10</p>
+                    <script>
+                        if (game.Critic_Score == "Not Specified") {
+                            document.write("<p><strong>Critic Score:</strong> ${game.Critic_Score}</p>");
+                        } else {
+                            document.write("<p><strong>Critic Score:</strong> ${game.Critic_Score}/100</p>");
+                        }
+                        
+                        if (game.User_Score == "Not Specified") {
+                            document.write("<p><strong>User Score:</strong> ${game.User_Score}</p>");
+                        } else {
+                            document.write("<p><strong>User Score:</strong> ${game.User_Score}/10</p>");
+                        }
+                    </script>
                     <p><strong>Rating:</strong> ${game.Rating}</p>
                 </div>
             </div>
