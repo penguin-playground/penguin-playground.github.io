@@ -1,18 +1,17 @@
-const apiKey = "234f4811a29b4c78a8d5561438f2e01b";
-const apiURL = `https://api.rawg.io/api/games?key=${apiKey}&page_size=6`;
-const select = document.getElementById('sort-by');
-const searchAlgorithmBtn = document.getElementById('search-algorithm');
-const pElementSearchAlgorithm = document.getElementById('search-algorithm-p');
+const select = document.getElementById('sort-by'); // the sort-by select element
+const searchAlgorithmBtn = document.getElementById('search-algorithm');  // the search algorithm select element
+const pElementSearchAlgorithm = document.getElementById('search-algorithm-p'); // the text above the search algorithm select element
 const previousBtn = document.getElementById('previousBtn');
 const nextBtn = document.getElementById('nextBtn');
-const gameSectionInfo = document.querySelector('.game-section-info');
-const numOfNodesDiv = document.getElementById('number-of-nodes');
-const numOfNodesText = document.getElementById('nodes-visited');
+const gameSectionInfo = document.querySelector('.game-section-info'); // the text showing up above all the games
+const numOfNodesDiv = document.getElementById('number-of-nodes'); // this is the div container that has the text for the number of nodes visited
+const numOfNodesText = document.getElementById('nodes-visited'); // text for the number of nodes visited
 
-previousBtn.style.display = 'none';
+previousBtn.style.display = 'none'; // initially don't show previous and next btn
 nextBtn.style.display = 'none';
-numOfNodesDiv.style.display = 'none';   
+numOfNodesDiv.style.display = 'none'; // initially don't display the text for the num of nodes visited
 
+/* === Event Listener for when a user selects a sort-by element, then the selection for choosing a search algorithm goes away === */
 select.addEventListener('change', function() {
     if (this.value != '0') {
         searchAlgorithmBtn.style.display = 'none';
@@ -24,11 +23,11 @@ select.addEventListener('change', function() {
     }
 });
 
+let salesTree = new window.AVL(window.globalSalesComparison) // AVL tree sorted by global sales
+let criticTree = new window.AVL(window.criticScoreComparison) // AVL tree sorted by critic score
+let userTree = new window.AVL(window.userScoreComparison) // AVL tree sorted by user score
 
-let salesTree = new window.AVL(window.globalSalesComparison)
-let criticTree = new window.AVL(window.criticScoreComparison)
-let userTree = new window.AVL(window.userScoreComparison)
-
+/* === Fetching data from data.json and creating the three different AVL trees === */
 const listOfAvlTrees = [salesTree, criticTree, userTree];
 fetch('data.json')
     .then(response => {
@@ -47,8 +46,8 @@ fetch('data.json')
 
 
 
+/* === Setting up the tagify for the publisher filter, with including the selections the user can make in whitelist === */
 var input1 = document.querySelector('input[name=tagify-publisher]');
-
 var publisherTagify = new Tagify(input1, {
     whitelist: [
         { value: "Nintendo", full: "Nintendo" },
@@ -645,10 +644,11 @@ var publisherTagify = new Tagify(input1, {
 })
 
 
-let filteredGames = [];
-let currentPage = 0;
-const gamesPerPage = 10;
+let filteredGames = []; // Where filtered games will be stored
+let currentPage = 0; // The current page the user is on
+const gamesPerPage = 10; // Number of games to show per page
 
+// Increases the page number by 1 and then loads the next 10 games with renderGamesPage()
 nextBtn.addEventListener('click', () => {
     if ((currentPage + 1) * gamesPerPage < filteredGames.length) {
         currentPage++;
@@ -656,6 +656,7 @@ nextBtn.addEventListener('click', () => {
     }
 });
 
+// Decreases the page number by 1 and then loads the previous 10 games with renderGamesPage()
 previousBtn.addEventListener('click', () => {
     if (currentPage > 0) {
         currentPage--;
@@ -663,6 +664,7 @@ previousBtn.addEventListener('click', () => {
     }
 });
 
+/*=== Renders the games on the current page based on the filteredGames array and currentPage variable. ===*/
 function renderGamesPage() {
     const gameContainer = document.getElementById('game-results');
     gameContainer.innerHTML = ""; // Clear previous results
@@ -672,11 +674,11 @@ function renderGamesPage() {
         return;
     }
     
-    const start = currentPage * gamesPerPage;
-    const end = start + gamesPerPage;
-    const gamesToDisplay = filteredGames.slice(start, end); 
+    const start = currentPage * gamesPerPage; // calculating when to start slicing in the filteredGames 
+    const end = start + gamesPerPage; // calculating when to end slicing in the filteredGames
+    const gamesToDisplay = filteredGames.slice(start, end); // the 10 games for the current page
 
-
+    // Displaying each game from gamesToDisplay to the frontend
     gamesToDisplay.forEach(game => {
         const div = document.createElement('div');
         div.classList.add('game-item');
@@ -704,6 +706,7 @@ function renderGamesPage() {
         gameContainer.appendChild(div);
     });
 
+    /* === If the current page is the first page, hide the previous button. Otherwise, show it. === */
     if (currentPage === 0) {
         previousBtn.style.display = 'none';
     }
@@ -711,6 +714,7 @@ function renderGamesPage() {
         previousBtn.style.display = 'block';
     }
 
+    /* === If the end index exceeds the length of filteredGames, hide the next button. Otherwise, show it. === */
     if (end >= filteredGames.length) {
         nextBtn.style.display = 'none';
     }
@@ -719,11 +723,11 @@ function renderGamesPage() {
     }
 }
 
+/*=== Event listener for the "Apply Filters" button. Gathers all selected filters and performs the search. ===*/
 const applyBtn = document.getElementById('applyBtn');
 applyBtn.addEventListener('click', () => {
-    console.log('hi');
 
-    const filters = {};
+    const filters = {}; // where all the selected filters will be stored
     // genre: [platformer, adventure], platform: [PC, PS4], year: [2020, 2021], rating: [E, T] etc
 
     const platformCheckboxes = document.querySelectorAll('.platform-content input[type="checkbox"]');
@@ -734,25 +738,27 @@ applyBtn.addEventListener('click', () => {
     const gameTitleInput = document.querySelector('input[name="game-search"]');
     const sortSelect = document.getElementById('sort-by');
     const searchAlgoSelect = document.getElementById('search-algorithm');
-    // sortSelect.value = the selected sort option;
 
-
-    const platformFilters = Array.from(platformCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+    /* === Checks to see all the selected checkboxes from each filter div === */
+    const platformFilters = Array.from(platformCheckboxes).filter(cb => cb.checked).map(cb => cb.value); 
     const genreFilters = Array.from(genreCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
     const yearFilters = Array.from(yearCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
     const ratingFilters = Array.from(ratingCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
     const publisherFilters = publisherTagify.value.map(tag => tag.value);
 
+    /* === If there are any selected filters, add them to the filters object === */
     if (platformFilters.length > 0) filters.Platform = platformFilters;
     if (genreFilters.length > 0) filters.Genre = genreFilters;
     if (yearFilters.length > 0) filters.Year_of_Release = yearFilters;
     if (ratingFilters.length > 0) filters.Rating = ratingFilters;
     if (publisherFilters.length > 0) filters.Publisher = publisherFilters;
 
+    /* === If there is a game title input, add it to the filters object === */
     if (gameTitleInput.value.trim() !== '') {
         filters.Name = gameTitleInput.value.trim();
     }
 
+    /* === Perform the search based on the selected sorting method selected === */
     if (sortSelect.value == 'best-selling') {
         filteredGames = salesTree.InorderSearch(filters);
     }
@@ -762,6 +768,8 @@ applyBtn.addEventListener('click', () => {
     else if (sortSelect.value == 'user-score') {
         filteredGames = userTree.InorderSearch(filters);
     }
+
+    // If the sort-by method is left none, use the selected search algorithm
     else {
         if (searchAlgoSelect.value == 'DFS') {
             filteredGames = salesTree.InorderSearch(filters);
@@ -771,50 +779,31 @@ applyBtn.addEventListener('click', () => {
         }
     }
 
-
+    // The div that will contain all the game objects after filtering
     const gameContainer = document.getElementById('game-results');
     gameContainer.innerHTML = ""; // Clear previous results
 
+    // If there are no filtered games, show the info message and hide the numOfNodesDiv that have the nodes passed
     if (filteredGames.length === 0) {
         gameSectionInfo.style.display = 'block';
         numOfNodesDiv.style.display = 'none';
         return;
     }
 
+    // Hide the info message since there are filtered games to show
     gameSectionInfo.style.display = 'none';
 
+    // If there are no filters selected or game title input, hide the numOfNodesDiv that have the nodes passed
     if (platformFilters.length === 0 && genreFilters.length === 0 && yearFilters.length === 0 && ratingFilters.length === 0 && publisherFilters.length === 0 && gameTitleInput.value.trim() === '') {
         numOfNodesDiv.style.display = 'none';
     }
+    // If there are filters selected or game title input, show the numOfNodesDiv that have the nodes passed
     else {
         numOfNodesDiv.style.display = 'block';
         numOfNodesDiv.innerText = `Number of nodes until first match: ${filteredGames[0].nodesPassed}`;
     }
 
-
+    // Sets the currentPage to 0 and renders the first page of results
     currentPage = 0;
     renderGamesPage();
-
-    /*
-    filteredGames.forEach(game => {
-
-        const div = document.createElement('div');
-        div.classList.add('game-item');
-
-        div.innerHTML = `
-            <h3>${game.Name}</h3>
-            <p><strong>Platform:</strong> ${game.Platform}</p>
-            <p><strong>Year:</strong> ${game.Year_of_Release}</p>
-            <p><strong>Genre:</strong> ${game.Genre}</p>
-            <p><strong>Publisher:</strong> ${game.Publisher}</p>
-            <p><strong>Developer:</strong> ${game.Developer}</p>
-            <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
-            <p><strong>Critic Score:</strong> ${game.Critic_Score}</p>
-            <p><strong>User Score:</strong> ${game.User_Score}</p>
-            <p><strong>Rating:</strong> ${game.Rating}</p>
-        `;
-
-        gameContainer.appendChild(div);
-    });*/
-    
 });
