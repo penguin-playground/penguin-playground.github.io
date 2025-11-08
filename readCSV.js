@@ -45,8 +45,8 @@ function CSVResultsToObject(results){
             row.Genre || "Not Specified",
             row.Publisher || "Not Specified",
             row.Global_Sales || "Not Specified",
-            row.Critic_Score || "Not Specified",
-            row.User_Score || "Not Specified",
+            row.Critic_Score || "?",
+            row.User_Score || "?",
             row.Developer || "Not Specified",
             row.Rating || "Not Specified"
         );
