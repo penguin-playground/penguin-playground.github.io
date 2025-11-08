@@ -130,6 +130,7 @@ section {
     column-gap: 20px;
 }
 
+
 ul {
     padding-left: 0px;
 }
@@ -141,6 +142,7 @@ ul {
 .genre-content ul {
     columns: 3;
 }
+
 
 .checkbox-list li {
     break-inside: avoid;

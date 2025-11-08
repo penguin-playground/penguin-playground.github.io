@@ -780,9 +780,15 @@ applyBtn.addEventListener('click', () => {
         return;
     }
 
-    gameSectionInfo.style.display = 'none'
-    numOfNodesDiv.style.display = 'block'
-    numOfNodesDiv.innerText = `Number of nodes until first match: ${filteredGames[0].nodesPassed}`
+    gameSectionInfo.style.display = 'none';
+
+    if (platformFilters.length === 0 && genreFilters.length === 0 && yearFilters.length === 0 && ratingFilters.length === 0 && publisherFilters.length === 0 && gameTitleInput.value.trim() === '') {
+        numOfNodesDiv.style.display = 'none';
+    }
+    else {
+        numOfNodesDiv.style.display = 'block';
+        numOfNodesDiv.innerText = `Number of nodes until first match: ${filteredGames[0].nodesPassed}`;
+    }
 
 
     currentPage = 0;
