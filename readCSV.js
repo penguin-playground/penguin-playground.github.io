@@ -39,16 +39,16 @@ function CSVResultsToObject(results){
     for (let i = 0; i < results.length; i++) {
         const row = results[i];
         const gameObj = new Game(
-            row.Name || "N/A",
-            row.Platform || "N/A",
-            row.Year_of_Release || "N/A",
-            row.Genre || "N/A",
-            row.Publisher || "N/A",
-            row.Global_Sales || "N/A",
-            row.Critic_Score || "N/A",
-            row.User_Score || "N/A",
-            row.Developer || "N/A",
-            row.Rating || "N/A"
+            row.Name || "Not Specified",
+            row.Platform || "Not Specified",
+            row.Year_of_Release || "Not Specified",
+            row.Genre || "Not Specified",
+            row.Publisher || "Not Specified",
+            row.Global_Sales || "Not Specified",
+            row.Critic_Score || "?",
+            row.User_Score || "?",
+            row.Developer || "Not Specified",
+            row.Rating || "Not Specified"
         );
         gameObjList.push(gameObj);
     }
