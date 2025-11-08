@@ -693,8 +693,8 @@ function renderGamesPage() {
                 </div>
                 <div class="right-side">
                     <p><strong>Global Sales:</strong> ${game.Global_Sales} million</p>
-                    <p><strong>Critic Score:</strong> ${game.Critic_Score}/100</p>");            
-                    <p><strong>User Score:</strong> ${game.User_Score}/10</p>");
+                    <p><strong>Critic Score:</strong> ${game.Critic_Score}/100</p>         
+                    <p><strong>User Score:</strong> ${game.User_Score}/10</p>
                     <p><strong>Rating:</strong> ${game.Rating}</p>
                 </div>
             </div>
