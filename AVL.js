@@ -9,8 +9,9 @@ class Node {
 }
 
 
-//Comparing games helper function
+//Comparing global sales (helper function)
 function globalSalesComparison(a, b) {
+    //Handles cells with missing/non-numerical data
     if(a.Global_Sales == "N/A" || a.Global_Sales =="tbd"){
         return -1;
     }
@@ -29,7 +30,9 @@ function globalSalesComparison(a, b) {
     //Return 0 if completely equal
     return 0;
 }
+//Comparing critic scores (helper function)
 function criticScoreComparison(a, b) {
+    //Handles cells with missing/non-numerical data
     if(a.Critic_Score == "N/A" || a.Critic_Score =="tbd"){
         return -1;
     }
@@ -48,7 +51,9 @@ function criticScoreComparison(a, b) {
     //Return 0 if completely equal
     return 0;
 }
+//Comparing user scores (helper function)
 function userScoreComparison(a, b) {
+    //Handles cells with missing/non-numerical data
     if(a.User_Score == "N/A" || a.User_Score =="tbd"){
         return -1;
     }
@@ -75,10 +80,10 @@ class AVL {
         this.comparisonFunction = comparisonFunction;
     }
     
-    //Inserting node to BST (no checks besides balancing)
+    //Inserting node to BST
     insertNode(root, game) {
         if (root === null) return new Node(game);
-        //Standard insertion with call to helper function
+        // Standard insertion with call to helper function
         const cmp = this.comparisonFunction(game, root.game);
         if (cmp < 0) {
             root.left = this.insertNode(root.left, game);
@@ -89,7 +94,7 @@ class AVL {
         root.height = 1 + Math.max(this.getHeight(root.left), this.getHeight(root.right));
         // Get balance factor
         let balance = this.getBalanceFactor(root);
-        //All rotation cases
+        // All rotation cases
         // LL Case
         if (balance > 1 && this.comparisonFunction(game, root.left.game) < 0) {
             return this.rotateRight(root);
@@ -146,60 +151,45 @@ class AVL {
         return temp;
     }
 
-    //Recursive helper function performing a depth-first search
-    searchNameHelper(node, name) {
-        if (!node) return false;
-
-        let foundCurr = false;
-        if (node.game.Name === name) {
-            console.log(node.game.Name);
-            foundCurr = true;
-        }
-
-        return foundCurr || this.searchNameHelper(node.left, name) || this.searchNameHelper(node.right, name);
-    }
-
-    //Mainly used to call helper function above
-    searchByName(name) {
-        if (!this.root || !this.searchNameHelper(this.root, name)) {
-            console.log("unsuccessful");
-            return false;
-        }
-        return true;
-    }
-
     //Filters the games displayed based on user's selection
     filterGame(game, filters) {
         if (!filters || Object.keys(filters).length === 0) return true;
+        //Loops through every filter key
         for (let key in filters) {
             if (Array.isArray(filters[key])) {
+                //Checks if any filtered values match the game's values for given key
                 if (!filters[key].some(f => String(game[key]).toLowerCase().includes(String(f).toLowerCase()))) return false;
             } else {
+                //Does same check but for non-array filter values
                 if (!String(game[key]).toLowerCase().includes(String(filters[key]).toLowerCase())) return false;
             }
         }
         return true;
     }
 
-    //Used for printInorder to traverse recursively with node and output parameter
+    //Used for InorderSearch to traverse recursively
     inorderHelper(node, outputV, filters, count) {
         if (!node) return;
         this.inorderHelper(node.right, outputV, filters, count);
         count.nodesPassed++;
         if (this.filterGame(node.game, filters)) {
+            //Creates copy of current node's game object w/ how many nodes visited to append object to array
             outputV.push({...node.game, nodesPassed: count.nodesPassed});
         }
         this.inorderHelper(node.left, outputV, filters, count);
     }
 
-    //Inorder search that primarily calls helper function
+    //Inorder search that primarily calls helper functions
     InorderSearch(filters = {}) {
+        //Initializes array of game objects
         let outputV = [];
+        //Initializes count object with nodesPassed property
         let count = {nodesPassed: 0};
         this.inorderHelper(this.root, outputV, filters, count);
         return outputV;
     }
 
+    //BFS search using queue to traverse
     BFS(filters){
         if (!this.root) {
             return []
@@ -212,6 +202,7 @@ class AVL {
             let currentNode = queue.shift()
             nodesPassed++;
             if(this.filterGame(currentNode.game, filters)){ //check if the current game object matches the filters
+                //Pushes copy of current node's game object w/ nodesPassed count
                 outputArr.push({...currentNode.game, nodesPassed})
             }
             if(currentNode.left){
@@ -222,52 +213,6 @@ class AVL {
             }
         }
         return outputArr //return an array of game objects that match the given filter
-    }
-
-
-    
-    //COULD USE POSTORDER AND PREORDER LATER BUT IS COMMENTED OUT FOR NOW
-    // //Used for printPreorder to traverse recursively with node and output parameter
-    // preorderHelper(node, outputV) {
-    //     if (!node) return;
-    //     outputV.push(node.student.name);
-    //     this.preorderHelper(node.left, outputV);
-    //     this.preorderHelper(node.right, outputV);
-    // }
-
-    // //Primarily calls helper function
-    // printPreorder() {
-    //     let outputV = [];
-    //     this.preorderHelper(this.root, outputV);
-    //     console.log(outputV.join(", "));
-    //     return outputV;
-    // }
-
-    // //Used for printPostorder to traverse recursively with node and output parameter
-    // postorderHelper(node, outputV) {
-    //     if (!node) return;
-    //     this.postorderHelper(node.left, outputV);
-    //     this.postorderHelper(node.right, outputV);
-    //     outputV.push(node.student.name);
-    // }
-
-    // //Primarily calls helper function
-    // printPostorder() {
-    //     let outputV = [];
-    //     this.postorderHelper(this.root, outputV);
-    //     console.log(outputV.join(", "));
-    //     return outputV;
-    // }
-
-    //Work already done for this function via getHeight function
-    printLevelCount() {
-        if (!this.root) {
-            console.log(0);
-            return 0;
-        } else {
-            console.log(this.getHeight(this.root));
-            return this.getHeight(this.root);
-        }
     }
 
     //Destructor helper function (optional in JS)

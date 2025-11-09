@@ -39,6 +39,7 @@ function CSVResultsToObject(results){
     for (let i = 0; i < results.length; i++) {
         const row = results[i];
         const gameObj = new Game(
+            //Replaces all empty cells in CSV to have value of "N/A"
             row.Name || "N/A",
             row.Platform || "N/A",
             row.Year_of_Release || "N/A",
